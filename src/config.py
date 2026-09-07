@@ -12,9 +12,8 @@ class Config:
     # Deepgram STT
     DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
     
-    # Gemini LLM
-    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-    GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.6-flash")
+    # OpenAI LLM
+    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
     
     # Rime TTS (Mapped to rime_test_api)
     RIME_API_KEY = os.getenv("rime_test_api")
@@ -23,7 +22,7 @@ class Config:
 
     @classmethod
     def validate(cls):
-        required = ["LIVEKIT_API_KEY", "LIVEKIT_API_SECRET", "DEEPGRAM_API_KEY", "GEMINI_API_KEY", "RIME_API_KEY"]
+        required = ["LIVEKIT_API_KEY", "LIVEKIT_API_SECRET", "DEEPGRAM_API_KEY", "OPENAI_API_KEY", "RIME_API_KEY"]
         missing = [key for key in required if not getattr(cls, key)]
         if missing:
             raise ValueError(f"Missing required environment variables: {', '.join(missing)}")

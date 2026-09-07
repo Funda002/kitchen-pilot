@@ -1,0 +1,33 @@
+{
+  "grilled_cheese": {
+    "title": "Classic Grilled Cheese",
+    "steps": [
+      "Spread soft butter on one side of two bread slices.",
+      "Place one slice butter-side down in a medium skillet.",
+      "Add two slices of cheddar cheese onto the bread.",
+      "Place the second slice on top, butter-side up.",
+      "Cook for three minutes until golden, then flip.",
+      "Cook two more minutes and serve immediately."
+    ]
+  },
+  "scrambled_eggs": {
+    "title": "Fluffy Scrambled Eggs",
+    "steps": [
+      "Whisk two eggs and a pinch of salt in a bowl.",
+      "Heat a non-stick pan over low heat with a knob of butter.",
+      "Pour the eggs into the pan.",
+      "Gently stir with a spatula until soft curds form.",
+      "Remove from heat while still slightly wet to avoid overcooking."
+    ]
+  },
+  "chocolate_mug_cake": {
+    "title": "Chocolate Mug Cake",
+    "steps": [
+      "Mix four tablespoons of flour and two tablespoons of cocoa in a mug.",
+      "Add two tablespoons of sugar and a pinch of baking powder.",
+      "Stir in three tablespoons of milk and one tablespoon of oil.",
+      "Microwave on high for ninety seconds.",
+      "Let it cool for one minute before eating."
+    ]
+  }
+}

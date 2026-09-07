@@ -7,6 +7,8 @@ That maps to LiveKit's ``ChunkedStream`` interface (rather than
 
 from __future__ import annotations
 
+import asyncio
+
 import aiohttp
 from livekit.agents import (
     APIConnectOptions,
@@ -44,6 +46,7 @@ class RimeTTS(tts.TTS):
 
         self._api_key = api_key
         self._speaker = speaker
+        self._active_streams: set[RimeTTSChunkedStream] = set()
         # A trailing slash can be treated as a different route by some API proxies.
         self._base_url = (base_url or RIME_TTS_URL).rstrip("/")
 
@@ -54,11 +57,20 @@ class RimeTTS(tts.TTS):
         conn_options: APIConnectOptions = DEFAULT_API_CONNECT_OPTIONS,
     ) -> tts.ChunkedStream:
         """Synchronously create the one-shot synthesis stream required by LiveKit."""
-        return RimeTTSChunkedStream(
+        stream = RimeTTSChunkedStream(
             tts=self,
             input_text=text,
             conn_options=conn_options,
         )
+        self._active_streams.add(stream)
+        stream._synthesize_task.add_done_callback(lambda _: self._active_streams.discard(stream))
+        return stream
+
+    async def abort_all(self) -> None:
+        """Immediately cancel active Rime requests when the caller barges in."""
+        streams = list(self._active_streams)
+        if streams:
+            await asyncio.gather(*(stream.aclose() for stream in streams), return_exceptions=True)
 
     async def _request_audio(
         self,
