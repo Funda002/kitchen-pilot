@@ -40,6 +40,20 @@ Kitchen Pilot is designed for a **hands-busy cooking environment**:
     steps.
 
 ------------------------------------------------------------------------
+# 🎥 Demo Implementation
+
+> **Watch the complete working demo of Kitchen Pilot**
+
+[▶️ **Watch Kitchen Pilot Demo on YouTube**](YOUR_YOUTUBE_LINK)
+
+The demo demonstrates:
+
+- Voice-based recipe selection
+- Deterministic recipe navigation
+- Cooking timers with spoken alerts
+- Voice interruption and recovery
+- Rime-powered speech output
+- Realtime voice interaction through LiveKit
 
 # 🎯 Problem
 
