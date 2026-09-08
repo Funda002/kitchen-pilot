@@ -44,7 +44,7 @@ Kitchen Pilot is designed for a **hands-busy cooking environment**:
 
 > **Watch the complete working demo of Kitchen Pilot**
 
-[▶️ **Watch Kitchen Pilot Demo on YouTube**](YOUR_YOUTUBE_LINK)
+[▶️ **Watch Kitchen Pilot Demo on YouTube**](https://www.youtube.com/watch?v=LYvaa4Skau0)
 
 The demo demonstrates:
 
