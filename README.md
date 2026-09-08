@@ -535,12 +535,15 @@ The LLM is instructed not to invent substitutions.
 # 📁 Project Structure
 
 ``` text
-kitchen_copilot/
+kitchen-pilot/
 │
 ├── agent.py
 │
 ├── src/
 │   ├── config.py
+│   │
+│   ├── data/
+│   │   └── recipes.json
 │   │
 │   ├── services/
 │   │   ├── rime_tts.py
@@ -550,9 +553,6 @@ kitchen_copilot/
 │   └── utils/
 │       └── text_normalizer.py
 │
-├── recipes/
-│   └── kitchen_pilot_35_recipe_library.json
-│
 ├── RIME_EVIDENCE.md
 ├── .env.example
 ├── .gitignore
@@ -560,8 +560,6 @@ kitchen_copilot/
 └── README.md
 ```
 
-Adjust the recipe-library path if it is stored elsewhere in the
-repository.
 
 ------------------------------------------------------------------------
 
@@ -896,9 +894,10 @@ cd kitchen_copilot
 
 Windows:
 
-``` bash
+
+```powershell
 python -m venv .venv
-.venv\Scriptsctivate
+.venv\Scripts\Activate.ps1
 ```
 
 Linux/macOS:
