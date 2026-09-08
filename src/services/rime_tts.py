@@ -72,32 +72,39 @@ class RimeTTS(tts.TTS):
         if streams:
             await asyncio.gather(*(stream.aclose() for stream in streams), return_exceptions=True)
 
-    async def _request_audio(
+
+class RimeTTSChunkedStream(tts.ChunkedStream):
+    """Streams Rime's audio chunks incrementally to reduce perceived response latency."""
+
+    def __init__(
         self,
-        text: str,
         *,
-        timeout: float,
-    ) -> tuple[bytes, str]:
-        """Request one WAV payload and return it with Rime's request id, if supplied."""
+        tts: RimeTTS,
+        input_text: str,
+        conn_options: APIConnectOptions,
+    ) -> None:
+        super().__init__(tts=tts, input_text=input_text, conn_options=conn_options)
+        self._tts: RimeTTS = tts
+
+    async def _run(self, output_emitter: tts.AudioEmitter) -> None:
         headers = {
             "Accept": "audio/wav",
-            "Authorization": f"Bearer {self._api_key}",
+            "Authorization": f"Bearer {self._tts._api_key}",
             "Content-Type": "application/json",
         }
-        # Keep these field names and values aligned with the verified Rime request.
         payload = {
-            "text": text,
+            "text": self.input_text,
             "modelId": RIME_MODEL_ID,
-            "speaker": self._speaker,
+            "speaker": self._tts._speaker,
             "lang": "en",
             "samplingRate": RIME_SAMPLE_RATE,
         }
 
-        client_timeout = aiohttp.ClientTimeout(total=timeout)
+        client_timeout = aiohttp.ClientTimeout(total=self._conn_options.timeout)
         try:
             async with aiohttp.ClientSession(timeout=client_timeout) as session:
                 async with session.post(
-                    self._base_url,
+                    self._tts._base_url,
                     json=payload,
                     headers=headers,
                 ) as response:
@@ -111,54 +118,28 @@ class RimeTTS(tts.TTS):
                             retryable=response.status >= 500,
                         )
 
-                    audio = await response.read()
-                    if not audio:
-                        raise APIStatusError(
-                            "Rime TTS returned an empty audio response",
-                            status_code=response.status,
-                            request_id=response.headers.get("x-request-id"),
-                            retryable=True,
-                        )
+                    request_id = response.headers.get("x-request-id") or utils.shortuuid()
+                    segment_id = request_id
 
-                    return audio, response.headers.get("x-request-id", "")
+                    # Stream-initialization: Emit metadata and begin chunks immediately
+                    output_emitter.initialize(
+                        request_id=request_id,
+                        sample_rate=RIME_SAMPLE_RATE,
+                        num_channels=RIME_NUM_CHANNELS,
+                        mime_type="audio/wav",
+                        stream=True,
+                    )
+                    output_emitter.start_segment(segment_id=segment_id)
+
+                    # Stream network chunks directly into the LiveKit audio pipeline
+                    async for chunk in response.content.iter_chunked(4096):
+                        if chunk:
+                            output_emitter.push(chunk)
+
+                    output_emitter.end_segment()
         except aiohttp.ServerTimeoutError as exc:
             raise APITimeoutError("Rime TTS request timed out") from exc
         except aiohttp.ClientError as exc:
             raise APIStatusError(
                 f"Rime TTS request failed: {exc}", retryable=True
             ) from exc
-
-
-class RimeTTSChunkedStream(tts.ChunkedStream):
-    """Feeds Rime's complete WAV response through LiveKit's AudioEmitter."""
-
-    def __init__(
-        self,
-        *,
-        tts: RimeTTS,
-        input_text: str,
-        conn_options: APIConnectOptions,
-    ) -> None:
-        super().__init__(tts=tts, input_text=input_text, conn_options=conn_options)
-        self._tts: RimeTTS = tts
-
-    async def _run(self, output_emitter: tts.AudioEmitter) -> None:
-        audio, provider_request_id = await self._tts._request_audio(
-            self.input_text,
-            timeout=self._conn_options.timeout,
-        )
-
-        # initialize() is mandatory. AudioEmitter owns decoding WAV bytes into
-        # SynthesizedAudio events, so never push AudioFrame/SynthesizedAudio here.
-        request_id = provider_request_id or utils.shortuuid()
-        segment_id = provider_request_id or utils.shortuuid()
-        output_emitter.initialize(
-            request_id=request_id,
-            sample_rate=RIME_SAMPLE_RATE,
-            num_channels=RIME_NUM_CHANNELS,
-            mime_type="audio/wav",
-            stream=True,
-        )
-        output_emitter.start_segment(segment_id=segment_id)
-        output_emitter.push(audio)
-        output_emitter.end_segment()

@@ -1,0 +1,80 @@
+{
+  "grilled_cheese": {
+    "title": "Classic Grilled Cheese",
+    "base_servings": 2,
+    "ingredients": [
+      {"name": "slices of bread", "amount": 2},
+      {"name": "slices of cheddar cheese", "amount": 2},
+      {"name": "tablespoon of butter", "amount": 1}
+    ],
+    "core_ingredients": ["bread", "cheese", "cheddar"],
+    "steps": [
+      "Spread soft butter on one side of two bread slices.",
+      "Place one slice butter-side down in a medium skillet.",
+      "Add two slices of cheddar cheese onto the bread.",
+      "Place the second slice on top, butter-side up.",
+      "Cook for three minutes until golden, then flip.",
+      "Cook two more minutes and serve immediately."
+    ]
+  },
+  "scrambled_eggs": {
+    "title": "Fluffy Scrambled Eggs",
+    "base_servings": 2,
+    "ingredients": [
+      {"name": "eggs", "amount": 2},
+      {"name": "knob of butter", "amount": 1},
+      {"name": "pinch of salt", "amount": 1}
+    ],
+    "core_ingredients": ["egg", "eggs"],
+    "steps": [
+      "Whisk two eggs and a pinch of salt in a bowl.",
+      "Heat a non-stick pan over low heat with a knob of butter.",
+      "Pour the eggs into the pan.",
+      "Gently stir with a spatula until soft curds form.",
+      "Remove from heat while still slightly wet to avoid overcooking."
+    ]
+  },
+  "chocolate_mug_cake": {
+    "title": "Chocolate Mug Cake",
+    "base_servings": 2,
+    "ingredients": [
+      {"name": "tablespoons of flour", "amount": 4},
+      {"name": "tablespoons of cocoa", "amount": 2},
+      {"name": "tablespoons of sugar", "amount": 2},
+      {"name": "pinch of baking powder", "amount": 1},
+      {"name": "tablespoons of milk", "amount": 3},
+      {"name": "tablespoon of oil", "amount": 1}
+    ],
+    "core_ingredients": ["flour", "cocoa"],
+    "steps": [
+      "Mix four tablespoons of flour and two tablespoons of cocoa in a mug.",
+      "Add two tablespoons of sugar and a pinch of baking powder.",
+      "Stir in three tablespoons of milk and one tablespoon of oil.",
+      "Microwave on high for ninety seconds.",
+      "Let it cool for one minute before eating."
+    ]
+  },
+  "pancakes": {
+    "title": "Classic Pancakes",
+    "base_servings": 2,
+    "ingredients": [
+      {"name": "all-purpose flour", "amount": 1.5, "unit": "cups"},
+      {"name": "baking powder", "amount": 2, "unit": "teaspoons"},
+      {"name": "sugar", "amount": 2, "unit": "tablespoons"},
+      {"name": "salt", "amount": 0.5, "unit": "teaspoon"},
+      {"name": "milk", "amount": 1.25, "unit": "cups"},
+      {"name": "egg", "amount": 1, "unit": "large"},
+      {"name": "melted butter", "amount": 2, "unit": "tablespoons"}
+    ],
+    "core_ingredients": ["flour", "egg", "milk"],
+    "steps": [
+      "In a bowl, whisk together the flour, baking powder, sugar, and salt.",
+      "Add the milk, egg, and melted butter, then whisk just until the batter comes together; a few small lumps are fine.",
+      "Heat a lightly buttered nonstick pan over medium heat. When the pan is hot, pour about one quarter cup of batter for each pancake.",
+      "Cook until bubbles form on the surface and the edges look set, about 2 minutes.",
+      "Flip the pancake and cook the other side until golden brown, about 1 to 2 minutes.",
+      "Transfer the pancakes to a plate and serve warm with your preferred toppings."
+    ]
+  }
+
+}

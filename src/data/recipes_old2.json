@@ -1701,59 +1701,5 @@
       "Cover and cook on low heat for about 15 minutes.",
       "Rest for 5 minutes, fluff gently, and serve."
     ]
-  },
-  "masala_chai": {
-    "title": "Indian Masala Chai",
-    "base_servings": 2,
-    "ingredients": [
-      {
-        "name": "water",
-        "amount": 1,
-        "unit": "cup"
-      },
-      {
-        "name": "milk",
-        "amount": 1,
-        "unit": "cup"
-      },
-      {
-        "name": "black tea",
-        "amount": 2,
-        "unit": "teaspoons"
-      },
-      {
-        "name": "sugar",
-        "amount": 2,
-        "unit": "teaspoons"
-      },
-      {
-        "name": "fresh ginger",
-        "amount": 1,
-        "unit": "teaspoon"
-      },
-      {
-        "name": "cardamom",
-        "amount": 2,
-        "unit": "pods"
-      },
-      {
-        "name": "cloves",
-        "amount": 2,
-        "unit": "cloves"
-      }
-    ],
-    "core_ingredients": [
-      "water",
-      "milk",
-      "black tea"
-    ],
-    "steps": [
-      "Crush the ginger, cardamom, and cloves lightly to release their flavor.",
-      "Add the water, crushed spices, and ginger to a saucepan and bring it to a gentle boil.",
-      "Add the black tea and simmer for about 2 minutes.",
-      "Pour in the milk and add the sugar, then bring the chai back to a gentle boil.",
-      "Simmer for 2 to 3 minutes until the chai becomes fragrant and slightly darker.",
-      "Strain the chai into cups and serve hot."
-    ]
   }
 }
